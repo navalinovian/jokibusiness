@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
+import useAuth from '../context/useAuth';
 import {
   Nav,
   NavbarContainer,
@@ -32,7 +33,9 @@ function Navbar() {
 
   useEffect(() => {
     showButton();
+    console.log(auth);
   }, []);
+  const {auth} = useAuth();
 
   window.addEventListener('resize', showButton);
 

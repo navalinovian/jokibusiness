@@ -1,4 +1,4 @@
-export async function payProdut(data) {
+export async function userLogin(data) {
     try {
         var future = new Date();
         const response = await fetch(`http://localhost:3000/api/login`, {
@@ -10,7 +10,7 @@ export async function payProdut(data) {
                 password: data.password,
             })
         })
-        return await response;
+        return await response.json();
     } catch (error) {
         return error
     }

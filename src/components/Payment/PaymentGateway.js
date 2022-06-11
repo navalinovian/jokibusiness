@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
 import { payProdut } from '../frontendServices/PaymentService';
-import './PaymentStyle.css'
+// import './PaymentStyle.css'
 const PaymentGateway = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false);
     const [paymentNotSuccess, setPaymentNotSuccess] = useState(false);
