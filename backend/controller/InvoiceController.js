@@ -45,30 +45,23 @@ exports.invoiceShow = async (req, res) => {
 }
 
 exports.invoiceCreate = async (request, res) => {
-    const { customerId, products } = request.body
+    const { userId, productId, expiredDate } = request.body
     try {
         const user = await User.findOne({
             where: {
-                id: customerId
+                id: userId
+            }
+        })
+        const product = await Product.findOne({
+            where:{
+                id:productId
             }
         })
         const invoice = await Invoice.create({
-            customerId: customerId,
-        }, {
-            include: [User, Product]
+            userId: userId,
+            productId: productId,
+            expiredDate: expiredDate
         })
-
-        let items = await []
-        products.map((product) => {
-            let item = {
-                "invoiceId": invoice.id,
-                "productId": product.productId,
-                "quantity": product.quantity
-            }
-            items.push(item)
-        })
-
-        const invoiceItem = await InvoiceItem.bulkCreate(items)
 
         return res.json(invoice)
     } catch (error) {

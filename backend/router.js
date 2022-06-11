@@ -19,7 +19,7 @@ router.patch('/user/:uuid', userUpdate)
 router.delete('/user/:uuid', userSoftDelete)
 
 router.get('/invoice', invoiceIndex)
-router.post('/invoice', invoiceCreate)
+router.post('/pay', invoiceCreate)
 router.get('/invoice/:uuid', invoiceShow)
 
 module.exports = router

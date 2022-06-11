@@ -8,20 +8,33 @@ module.exports = {
         type: Sequelize.UUID,
         defaultValue: Sequelize.fn('gen_random_uuid')
       },
-      userId: {
-        type: Sequelize.UUID,
+      userId:{
+        type:Sequelize.UUID,
         allowNull:false,
-        reference:{
+        references:{
           model:{
             tableName:'users'
           },
           key:'id'
         }
       },
+      productId:{
+        type:Sequelize.UUID,
+        allowNull:false,
+        references:{
+          model:{
+            tableName:'products'
+          },
+          key:'id'
+        }
+      },
+      expiredDate:{
+        type:Sequelize.DATE,
+        allowNull:false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue:new Date()
       },
     });
   },

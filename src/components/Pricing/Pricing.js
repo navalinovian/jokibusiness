@@ -20,9 +20,10 @@ import {
   PricingCardFeature
 } from './Pricing.elements';
 import { getAllProducts } from '../frontendServices/ProductService';
+import { useNavigate } from 'react-router-dom';
 
 function Pricing() {
-
+  let navigate = useNavigate()
   const [product, setProduct] = useState([])
 
   const productLogo = (product) => {
@@ -47,7 +48,7 @@ function Pricing() {
   }, [])
 
   const handleClick=(product)=>{
-    console.log(product);
+    navigate('/payment-gateway', {state:product})
   }
 
   return (
@@ -57,8 +58,8 @@ function Pricing() {
           <PricingHeading>Our Services</PricingHeading>
           <PricingContainer>
             {product.map((value) => {
-              const { name, price } = value;
-              return <PricingCard to='/sign-up'>
+              const { name, price, id } = value;
+              return <PricingCard key={id}>
                 <PricingCardInfo>
                   <PricingCardIcon>
                     {productLogo(value)}

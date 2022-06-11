@@ -4,28 +4,30 @@ import Home from './pages/HomePage/Home';
 import Services from './pages/Services/Services';
 import Products from './pages/Products/Products';
 import SignUp from './pages/SignUp/SignUp';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import ScrollToTop from './components/ScrollToTop';
 import { Navbar, Footer } from './components';
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
+import PaymentGateway from './components/Payment/PaymentGateway';
 
 function App() {
   return (
-    <Router>
+    <BrowserRouter>
       <GlobalStyle />
       <ScrollToTop />
       <Navbar />
-      <Switch>
-        <Route path='/' exact component={Home} />
-        <Route path="/sign-up" component={Signup} />
-        <Route path="/Login" component={Login} />
-        <Route path='/services' component={Services} />
-        <Route path='/products' component={Products} />
-        <Route path='/sign-up' component={SignUp} />
-      </Switch>
+      <Routes>
+        <Route path='/' exact element={<Home/>} />
+        <Route path="/sign-up" element={<Signup/>} />
+        <Route path="/Login" element={<Login/>} />
+        <Route path='/services' element={<Services/>} />
+        <Route path='/products' element={<Products/>} />
+        <Route path='/sign-up' element={<SignUp/>} />
+        <Route path='/payment-gateway' element={<PaymentGateway/>} />
+      </Routes>
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
 }
 
