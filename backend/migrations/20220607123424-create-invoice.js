@@ -7,7 +7,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.UUID,
         // defaultValue: Sequelize.fn('gen_random_uuid')//for postgres
-        defaultValue: Sequelize.fn('UUID()')//for mysql
+        defaultValue: Sequelize.fn('UUID')//for mysql
       },
       userId:{
         type:Sequelize.UUID,

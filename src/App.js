@@ -10,12 +10,16 @@ import { Navbar, Footer } from './components';
 import Signup from "./components/signup/Signup";
 import Login from "./components/login/Login";
 import PaymentGateway from './components/Payment/PaymentGateway';
+import { AuthProvider } from './components/context/AuthProvider';
+import RequireAuth from './components/context/RequireAuth';
+import Profile from './components/Profile/Profile';
 
 function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
       <ScrollToTop />
+      <AuthProvider>
       <Navbar />
       <Routes>
         <Route path='/' exact element={<Home/>} />
@@ -24,8 +28,12 @@ function App() {
         <Route path='/services' element={<Services/>} />
         <Route path='/products' element={<Products/>} />
         <Route path='/sign-up' element={<SignUp/>} />
+        <Route element={<RequireAuth/>}>
         <Route path='/payment-gateway' element={<PaymentGateway/>} />
+        <Route path='/profile' element={<Profile/>} />
+        </Route>
       </Routes>
+      </AuthProvider>
       <Footer />
     </BrowserRouter>
   );

@@ -1,5 +1,5 @@
 
-import React, { Component, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   Container,
@@ -10,34 +10,35 @@ import {
   FormControl
 } from "react-bootstrap";
 import { userLogin } from "../frontendServices/UserService";
-import useAuth from "../context/useAuth";
+import AuthContext from "../context/AuthProvider";
+// import useAuth from "../context/useAuth";
 
 const Login = () => {
-  //cobna
+  const { setAuth } = useContext(AuthContext);
   const [userCredential, setUserCredential] = useState({
     username: '',
     password: '',
   })
   let navigate = useNavigate()
-  const { setAuth } = useAuth();
   const handleChange = (event) => {
     const { name, value } = event.target;
     setUserCredential((prevState) => {
-        return {
-            ...prevState,
-            [name]: value,
-        };
+      return {
+        ...prevState,
+        [name]: value,
+      };
     });
-}
+  }
 
   const { username, password } = userCredential
 
   const onLoginClick = async () => {
+    console.log("diclick");
     const user = await userLogin(userCredential);
-    console.log(user);
-    setAuth({user})
+    setAuth({ user })
+    navigate('/services')
   };
-  
+
   return (
     <Container>
       <Row>
@@ -68,9 +69,9 @@ const Login = () => {
               <Form.Control.Feedback type="invalid"></Form.Control.Feedback>
             </Form.Group>
           </Form>
-          <Button color="primary" onClick={()=> onLoginClick}>Login</Button>
+          <Button color="primary" onClick={() => onLoginClick()}>Login</Button>
           <p className="mt-2">
-            Don't have account? <Link to="/signup">Signup</Link>
+            Don't have account? <Link to="/sign-up">Signup</Link>
           </p>
         </Col>
       </Row>

@@ -44,6 +44,26 @@ exports.invoiceShow = async (req, res) => {
     }
 }
 
+exports.invoiceIndexByUser = async (req, res) => {
+    const uuid = req.params.uuid
+    try {
+        const invoice = await Invoice.findAll({
+            where: {
+                userId: uuid
+            },
+            include: {
+                model: Product,
+                attributes: ['id','name', 'price'],
+            }
+        })
+
+        return res.json(invoice)
+    } catch (error) {
+        console.log(error);
+        return res.status(404).json(error.errors)
+    }
+}
+
 exports.invoiceCreate = async (request, res) => {
     const { userId, productId, expiredDate } = request.body
     try {

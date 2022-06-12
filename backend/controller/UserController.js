@@ -62,7 +62,7 @@ exports.userShow = async (req, res) => {
 }
 
 exports.userCreate = async (request, res) => {
-    const { username, password, roleId } = request.body
+    const { username, password } = request.body
     try {
         const user = await User.create({
             username: username,

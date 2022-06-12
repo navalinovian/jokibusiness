@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { IconContext } from 'react-icons/lib';
 import { Button } from '../../globalStyles';
-import useAuth from '../context/useAuth';
+import AuthContext from '../context/AuthProvider';
 import {
   Nav,
   NavbarContainer,
@@ -17,9 +17,9 @@ import {
 } from './Navbar.elements';
 
 function Navbar() {
+  const { auth } = useContext(AuthContext);
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
-
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
@@ -33,9 +33,7 @@ function Navbar() {
 
   useEffect(() => {
     showButton();
-    console.log(auth);
   }, []);
-  const {auth} = useAuth();
 
   window.addEventListener('resize', showButton);
 
@@ -68,14 +66,24 @@ function Navbar() {
                 </NavLinks>
               </NavItem>
               <NavItemBtn>
-                {button ? (
-                  <NavBtnLink to='/sign-up'>
-                    <Button primary>SIGN UP</Button>
+                {button ? auth?.user?.username ? (
+                  <NavBtnLink to='/profile'>
+                    <Button primary>{auth.user.username}</Button>
                   </NavBtnLink>
                 ) : (
-                  <NavBtnLink to='/sign-up'>
+                  <NavBtnLink to='/login'>
+                    <Button primary>Login</Button>
+                  </NavBtnLink>
+                ) : auth?.user?.username ? (
+                  <NavBtnLink to='/profile'>
                     <Button onClick={closeMobileMenu} fontBig primary>
-                      SIGN UP
+                    {auth.user.username}
+                    </Button>
+                  </NavBtnLink>
+                ) : (
+                  <NavBtnLink to='/login'>
+                    <Button onClick={closeMobileMenu} fontBig primary>
+                      Login
                     </Button>
                   </NavBtnLink>
                 )}

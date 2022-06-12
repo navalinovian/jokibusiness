@@ -1,5 +1,5 @@
 const express = require('express')
-const { invoiceIndex, paymentCreate, invoiceCreate, invoiceShow } = require('./controller/InvoiceController');
+const { invoiceIndex, paymentCreate, invoiceCreate, invoiceShow, invoiceIndexByUser } = require('./controller/InvoiceController');
 const { productIndex, productAll, productCreate, productUpdate, productSoftDelete, productHardDelete } = require('./controller/ProductController');
 const { userIndex, userShow, userCreate, userUpdate, userSoftDelete, login } = require('./controller/UserController');
 const router = express.Router()
@@ -13,7 +13,7 @@ router.delete('/del-product/:uuid', productHardDelete);
 
 router.get('/user', userIndex)
 router.get('/user/:uuid', userShow)
-router.post('/user', userCreate)
+router.post('/register', userCreate)
 router.post('/login', login)
 router.patch('/user/:uuid', userUpdate)
 router.delete('/user/:uuid', userSoftDelete)
@@ -21,5 +21,6 @@ router.delete('/user/:uuid', userSoftDelete)
 router.get('/invoice', invoiceIndex)
 router.post('/pay', invoiceCreate)
 router.get('/invoice/:uuid', invoiceShow)
+router.get('/invoices/:uuid', invoiceIndexByUser)
 
 module.exports = router

@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthProvider';
 import { payProdut } from '../frontendServices/PaymentService';
 // import './PaymentStyle.css'
 const PaymentGateway = () => {
@@ -9,12 +10,12 @@ const PaymentGateway = () => {
     let navigate = useNavigate();
     useEffect(() => {
     }, [])
-
+    const {auth} = useContext(AuthContext)
     const handlePay = async () => {
         const payDetails = {
-            productId: state.id
+            productId: state.id,
+            userId:auth.user.id
         }
-        console.log(payDetails);
         const res = await payProdut(payDetails)
         if (res.status !== 500) {
             setPaymentSuccess(true)
@@ -36,7 +37,6 @@ const PaymentGateway = () => {
 
     useEffect(() => {
         if (paymentSuccess) {
-            console.log(paymentSuccess);
             const timeId = setTimeout(() => {
                 navigate('/')
             }, 4999)    
@@ -44,7 +44,7 @@ const PaymentGateway = () => {
                 clearTimeout(timeId)
             }
         }
-    }, [paymentSuccess])
+    })
 
 
     return (

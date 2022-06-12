@@ -6,7 +6,7 @@ export async function payProdut(data) {
             mode: 'cors',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
             body: JSON.stringify({
-                userId: "33c46157-a02f-41de-84e4-0ca0514887d1",
+                userId: data.userId,
                 productId: data.productId,
                 expiredDate:future.setDate(future.getDate() + 30)
             })
@@ -16,4 +16,15 @@ export async function payProdut(data) {
         return error
     }
 
+}
+
+export async function getAllInvoices(data) {
+    try{
+        const response = await fetch(`http://localhost:3000/api/invoices/${data.user.id}`);
+        // console.log(await response.json());
+        return await response.json();
+    }catch(error) {
+        return error
+    }
+    
 }
